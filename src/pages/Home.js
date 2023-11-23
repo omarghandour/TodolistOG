@@ -81,7 +81,7 @@ const Home = () => {
                         {sortedTasks?.map((task) => <ListItemPre key={task.id} task={task} authToken={authToken} getData={getData} />)}
                     </div>
                 </div>
-                <button onClick={noti}>Notifcation</button>
+                {/* <button onClick={noti}>Notifcation</button> */}
                 <div className='hero2'>
                     <h3>OGTodo is more than just an app. It's a lifestyle.
                         It's a way to simplify your life and focus on what matters most.

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import logo2 from '../src/components/pic/OGTodo-logos.jpeg'
+// import logo2 from '../src/components/pic/OGTodo-logos.jpeg'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import {
   createBrowserRouter,
@@ -25,35 +25,35 @@ const router = createBrowserRouter([
   },
 ]);
 
-const hh = async()=>{
-  await Notification.requestPermission();
-}
-// window.addEventListener("load")
-hh()
-const requestNotificationPermission = async()=>{
-  const permission = await Notification.requestPermission();
+// const hh = async()=>{
+//   await Notification.requestPermission();
+// }
+// // window.addEventListener("load")
+// hh()
+// const requestNotificationPermission = async()=>{
+//   const permission = await Notification.requestPermission();
 
-  if (permission !== 'granted'){
-    throw new Error("Notification permission is not granted!")
-  }else{
-    new Notification("Hello friend", {
-      body: 'This is a test ',
-      data: {
-          Hi: "hi"
-      },
-      icon: logo2
-  })
-  }
-  }
+//   if (permission !== 'granted'){
+//     throw new Error("Notification permission is not granted!")
+//   }else{
+//     new Notification("Hello friend", {
+//       body: 'This is a test ',
+//       data: {
+//           Hi: "hi"
+//       },
+//       icon: logo2
+//   })
+//   }
+//   }
 
-const checkPermission = () =>{
-  if(!('serviceWorker' in navigator)){
-    throw new Error("No support for service worker!")
-  }
-  if(!('Notification' in window)){
-    throw new Error("No support for notification API")
-  }
-}
+// const checkPermission = () =>{
+//   if(!('serviceWorker' in navigator)){
+//     throw new Error("No support for service worker!")
+//   }
+//   if(!('Notification' in window)){
+//     throw new Error("No support for notification API")
+//   }
+// }
 // const registerSW = async()=>{
 // const registration = await navigator.serviceWorker.register('sw.js');
 // return registration;
@@ -68,9 +68,9 @@ root.render(
     </HelmetProvider>
   </React.StrictMode>
 );
-requestNotificationPermission();
+// requestNotificationPermission();
 serviceWorkerRegistration.register();
-checkPermission();
+// checkPermission();
 // registerSW();
 
 

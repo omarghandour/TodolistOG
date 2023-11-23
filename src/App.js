@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Todo from './pages/Todo'
 import M from './components/M'
 import { Helmet } from 'react-helmet-async'
-import firebase from './firebase'
+// import firebase from './firebase'
 const App = () => {
-  React.useEffect(()=>{
-    const msg=firebase.messaging();
-    msg.requestPermission().then(()=>{
-      return msg.getToken();
-    }).then((data)=>{
-      console.warn("token",data)
-    })
-  })
+  // React.useEffect(()=>{
+  //   const msg=firebase.messaging();
+  //   msg.requestPermission().then(()=>{
+  //     return msg.getToken();
+  //   }).then((data)=>{
+  //     console.warn("token",data)
+  //   })
+  // })
 
   return (
     <div className='app'>
