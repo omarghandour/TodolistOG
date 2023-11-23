@@ -1,0 +1,175 @@
+.home-con {
+    width: 90%;
+    height: 100%;
+    background-color: rgb(150 125 103);
+    margin: 0 auto;
+}
+
+
+
+.Nav-link {
+    text-decoration: none;
+    background-color: #F0EADE;
+    padding: 5px;
+    border-radius: 5px;
+    color: #967d67;
+    width: 120px;
+    text-align: center;
+}
+
+.header-home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.Nav-link:hover {
+    background-color: #bab6ae;
+    color: white;
+}
+
+.hero-home {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.licontent-home {
+    background-color: #EDEAE8;
+    border-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 50%;
+}
+
+.content-home {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.content-home h1 {
+    font-size: 50px;
+    color: white;
+}
+
+.content-home p {
+    color: white;
+}
+
+.hero2 {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.hero2 h3 {
+    color: white;
+}
+
+@media (max-width: 700px) {
+    /* * {
+        text-align: center;
+    } */
+
+    .home-con {
+        width: 95%;
+        background-color: rgb(150 125 103);
+        margin: 0 auto;
+        height: 135%;
+    }
+
+    .hero-home {
+        margin: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .content-home {
+        width: 90%;
+    }
+
+    .content-home h1 {
+        font-size: 40px;
+        color: white;
+        margin: 0px;
+    }
+
+    .licontent-home {
+        width: 90%;
+        height: 380px;
+    }
+
+
+}
+
+.task-title-home {
+    max-width: 160px !important;
+}
+
+
+
+
+.containerr {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.errorr {
+    text-align: center;
+}
+
+.errorr h1 {
+    font-size: 120px;
+    color: #ff0000;
+    animation: bounce 1s infinite;
+}
+
+.errorr h2 {
+    font-size: 36px;
+    color: #333333;
+}
+
+.errorr p {
+    font-size: 18px;
+    color: #666666;
+}
+
+.errorr .Nav-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #ff0000;
+}
+
+.errorr .Nav-link:hover {
+    background-color: #cc0000;
+}
+
+.errorr img {
+    width: 300px;
+}
+
+@keyframes bounce {
+
+    from,
+    to {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+
+    50% {
+        transform: translateY(-50px);
+        animation-timing-function: ease-in;
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4452525b.css",
+    "main.js": "/static/js/main.5fb90b6d.js",
+    "service-worker.js": "/service-worker.js",
+    "static/media/OGTodo-logos_white.png": "/static/media/OGTodo-logos_white.428bfa441da5c6d162fa.png",
+    "index.html": "/index.html",
+    "main.4452525b.css.map": "/static/css/main.4452525b.css.map",
+    "main.5fb90b6d.js.map": "/static/js/main.5fb90b6d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4452525b.css",
+    "static/js/main.5fb90b6d.js"
+  ]
+}
