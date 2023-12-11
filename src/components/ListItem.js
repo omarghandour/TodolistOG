@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ProgressBar from './ProgressBar'
 import TickIcon from './TickIcon'
 import Modal from './Modal';
 
-const ListItem = ({ task, getData, authToken, pass }) => {
-    const [tr, setTr] = useState(false);
+const ListItem = ({ task, getData }) => {
+    const [check, setCheck] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const deleteItem = async () => {
         try {
@@ -18,51 +18,18 @@ const ListItem = ({ task, getData, authToken, pass }) => {
             console.log(err);
         }
     }
-    const ele = document.getElementById(`${task.id}`)
-    const mo = () => {
-        if (ele) {
-            ele.style.textDecoration = "line-through"
-        }
-    }
-    const nomo = () => {
-        if (ele) {
-            document.getElementById(`${task.id}`).style.textDecoration = "none"
-        }
 
-    }
-    const prog = async () => {
 
-        if (task.progress === 100 || tr === true) {
-            mo()
-        } else {
-            nomo()
-        }
-
-    }
-    useEffect(() => {
-        prog()
-    }, [])
-
-    // prog();
     const handleCheck = () => {
-        setTr(!tr)
+        setCheck(!check)
     }
 
-
-
-    // window.onload = (event) => {
-    //     console.log("page is fully loaded");
-    //     prog();
-    // };
-    if (authToken) {
-        prog();
-    }
     return (
         <li className='list-item'>
 
             <div className='info-container'>
                 <TickIcon handleCheck={handleCheck} />
-                <p className='task-title' id={task.id}>{task.title}</p>
+                <p className='task-title'style={check || task.progress === 100 ? {textDecoration: "line-through"} : {}} id={task.id}>{task.title}</p>
             </div>
             <div className='ss'>
                 <ProgressBar progress={task.progress} />
