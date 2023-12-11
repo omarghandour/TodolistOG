@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import './Pages.css'
 import logo from '../components/pic/OGTodo-logos_white.png'
-import logo2 from '../components/pic/OGTodo-logos.jpeg'
+// import logo2 from '../components/pic/OGTodo-logos.jpeg'
 import { useCookies } from 'react-cookie';
 import ListItemPre from '../components/ListItemPre';
 import M from '../components/M';
@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet-async';
 
 
 const Home = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(null);
+    const [cookies] = useCookies(null);
     const [tasks, setTasks] = useState(null)
 
     const authToken = cookies.AuthToken;
@@ -30,20 +30,20 @@ const Home = () => {
     if (authToken) {
         window.location = '/todo';
     }
-    const noti = ()=>{
+    // const noti = ()=>{
         
-        Notification.requestPermission().then(perm =>{
-            if(perm === "granted"){
-                new Notification("Hello friend", {
-                    body: 'This is a test message',
-                    data: {
-                        Hi: "hi"
-                    },
-                    icon: logo2
-                })
-            }
-        })
-    }
+    //     Notification.requestPermission().then(perm =>{
+    //         if(perm === "granted"){
+    //             new Notification("Hello friend", {
+    //                 body: 'This is a test message',
+    //                 data: {
+    //                     Hi: "hi"
+    //                 },
+    //                 icon: logo2
+    //             })
+    //         }
+    //     })
+    // }
     return (
         <>
             <Helmet>

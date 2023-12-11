@@ -3,41 +3,21 @@ import TickIcon from './TickIcon'
 import ProgressBar from './ProgressBar'
 import '../pages/Pages.css'
 const ListItemPre = ({ task }) => {
-    const [tr, setTr] = useState(false);
-    const ele = document.getElementById(`${task.id}`)
-    const mo = () => {
-        if (ele) {
-            ele.style.textDecoration = "line-through"
-        }
-    }
-    const nomo = () => {
-        if (ele) {
-            document.getElementById(`${task.id}`).style.textDecoration = "none"
-        }
-
-    }
+    const [check, setCheck] = useState(false);
 
 
-    const prog = async () => {
 
-        if (task.progress === 100 || tr === true) {
-            mo()
-        } else {
-            nomo()
-        }
-
-    }
+ 
     const handleCheck = () => {
-        setTr(!tr)
+        setCheck(!check)
     }
-    prog();
 
     return (
         <div><li className='list-item'>
 
             <div className='info-container'>
                 <TickIcon handleCheck={handleCheck} />
-                <p className='task-title-home' id={task.id}>{task.title}</p>
+                <p className='task-title-home' style={check || task.progress === 100 ? {textDecoration: "line-through"} : {}} id={task.id}>{task.title}</p>
             </div>
             <div className='ss'>
                 <ProgressBar progress={task.progress} />

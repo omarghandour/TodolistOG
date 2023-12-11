@@ -5,7 +5,7 @@ import ListItem from '../components/ListItem'
 import { useCookies } from 'react-cookie'
 
 const Todo = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(null);
+    const [cookies,] = useCookies(null);
     const [tasks, setTasks] = useState(null)
     const authToken = cookies.AuthToken;
     const userEmail = cookies.Email;
@@ -24,7 +24,6 @@ const Todo = () => {
             getData();
         }
     }, []);
-    console.log(tasks)
     const today = new Date().toLocaleString("en-US", { weekday: 'long', month: 'long', day: 'numeric' });
     // sort by date
     const sortedTasks = tasks?.sort((a, b) => new Date(a.date) - new Date(b.date))
