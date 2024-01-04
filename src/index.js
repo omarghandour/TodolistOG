@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import ErrorPage from './pages/ErrorPage';
+import Try from './pages/Tryhard/Try';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/todo",
     element: <App />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/todo/tryhard",
+    element: <Try />,
     errorElement: <ErrorPage />,
   },
 ]);
