@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-const Modal = ({ mode, setShowModal, getData, task, todayStreak }) => {
+const Modal = ({ mode, setShowModal, getData, task, todayStreak, streak }) => {
   const [cookies] = useCookies(null);
   const editMode = mode === "edit" ? true : false;
   const today = new Date().toLocaleString("en-US", {
@@ -12,20 +12,26 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak }) => {
   });
   const email = cookies.Email;
   console.log(email);
-  const [streak, setStreak] = useState(1);
+  const [streaks, setStreak] = useState(streak);
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
     title: editMode ? task.title : null,
     progress: editMode ? task.progress : 50,
-    date: editMode ? today : today,
+    date: editMode ? new Date() : new Date(),
+    today: new Date().getDay(),
   });
+
   const dbb = process.env.DBB;
   const Streak = async () => {
+    const data1 = {
+      email: email,
+      streak: streaks,
+    };
     try {
-      const response = await fetch(`https://localhost5000/login`, {
+      const response = await fetch(`http://localhost:5000/login`, {
         method: "PATCH",
-        // headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, streak }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data1),
       });
       if (response.status === 200) {
         console.log("streak!");
@@ -34,7 +40,16 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak }) => {
       console.log(err);
     }
   };
+  useEffect(() => {
+    if (todayStreak === true) {
+      const dfg = new Date().getDay();
 
+      if (+dfg + +streak !== +streak - 1) {
+        setStreak(+streak + 1);
+      }
+    }
+    console.log(streaks);
+  }, [streak, streaks, todayStreak]);
   const postData = async (e) => {
     e.preventDefault();
     try {
@@ -50,6 +65,7 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak }) => {
         console.log("worked!");
         setShowModal(false);
         getData();
+        Streak();
         if (data.date === today) {
           setStreak(streak + 1);
         }
@@ -58,6 +74,8 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak }) => {
       console.log(err);
     }
   };
+  Streak();
+
   const editData = async (e) => {
     e.preventDefault();
     try {
@@ -70,7 +88,6 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak }) => {
       if (response.status === 200) {
         setShowModal(false);
         getData();
-        Streak();
       }
     } catch (err) {
       console.log(err);

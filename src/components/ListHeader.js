@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import { useCookies } from "react-cookie";
 import logo from "./pic/OGTodo-logos_white.png";
 
-const ListHeader = ({ listName, getData, todayStreak }) => {
+const ListHeader = ({ listName, getData, todayStreak, streak }) => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const [showModal, setShowModal] = useState(false);
   const signOut = () => {
@@ -30,6 +30,7 @@ const ListHeader = ({ listName, getData, todayStreak }) => {
       </div>
       {showModal && (
         <Modal
+          streak={streak}
           mode={"create"}
           setShowModal={setShowModal}
           getData={getData}

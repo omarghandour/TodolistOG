@@ -5,18 +5,25 @@ import ListItem from "../components/ListItem";
 import { useCookies } from "react-cookie";
 
 const Todo = () => {
+  const [streak, setStreak] = useState();
   const [cookies] = useCookies(null);
   const [tasks, setTasks] = useState(null);
   const authToken = cookies.AuthToken;
   const userEmail = cookies.Email;
-
+  const dbb = process.env.DBB;
   const getData = async () => {
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api
       const response = await fetch(`http://localhost:5000/todos/${userEmail}`);
       const json = await response.json();
+      console.log(json);
       setTasks(json);
-
+      const streak = await fetch(
+        `http://localhost:5000/todos/${userEmail}/today`
+      );
+      const streakJson = await streak.json();
+      setStreak(streakJson);
+      // console.log(streakJson);
       //   if (json[0].date === today) {
       //     console.log(true);
       //   }
@@ -24,8 +31,8 @@ const Todo = () => {
       console.error(err);
     }
   };
+  console.log(streak);
   //   console.log(tasksDates);
-
   //   const ff = new Date();
   //   console.log(ff);
   useEffect(() => {
@@ -36,7 +43,7 @@ const Todo = () => {
   const today = new Date().toLocaleString("en-US", {
     year: "numeric",
     weekday: "long",
-    month: "long",
+    month: "numeric",
     day: "numeric",
   });
 
@@ -44,18 +51,22 @@ const Todo = () => {
   const sortedTasks = tasks?.sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
-
+  const today1 = new Date().getDay();
+  const yesterday = new Date().getDay() - 1;
+  // console.log(day1, yesterday);
   //   streak
-
-  const tasksDates = tasks?.map((task) => task.date);
-  const todayStreak = tasksDates?.includes(today);
-
+  // const yesterday = new Date(Date.now() - 86400000);
+  // console.log(yesterday);
+  const tasksDates = tasks?.map((task) => +task.today);
+  const todayStreak = tasksDates?.includes(+yesterday);
+  console.log(todayStreak);
   return (
     <div>
       {!authToken && <Auth />}
       {authToken && (
         <div className="item-body">
           <ListHeader
+            streak={streak}
             todayStreak={todayStreak}
             listName={`${today} `}
             getData={getData}
