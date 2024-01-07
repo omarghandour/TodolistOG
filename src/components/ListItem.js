@@ -10,7 +10,7 @@ const ListItem = ({ task, getData }) => {
   const deleteItem = async () => {
     try {
       const response = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${task.id}`,
+        `https://ogtodoserver.onrender.com/todos/${task.id}`,
         {
           method: "DELETE",
         }
