@@ -40,14 +40,11 @@ const Modal = ({
       streak: todayStreak === true ? +streak + 1 : 0,
     };
     try {
-      const response = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/login`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data1),
-        }
-      );
+      const response = await fetch(`https://ogtodoserver.onrender.com/login`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data1),
+      });
       if (response.status === 200) {
         console.log("streak!");
       }
@@ -64,7 +61,7 @@ const Modal = ({
     if (+todayuser !== +todayDay) {
       try {
         const response = await fetch(
-          `https://us-central1-back-e8f9a.cloudfunctions.net/api/today`,
+          `https://ogtodoserver.onrender.com/today`,
           {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -98,14 +95,11 @@ const Modal = ({
     e.preventDefault();
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api
-      const response = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`https://ogtodoserver.onrender.com/todos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
       if (response.status === 200) {
         console.log("worked!");
         setShowModal(false);
@@ -122,7 +116,7 @@ const Modal = ({
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api/
       const response = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${task.id}`,
+        `https://ogtodoserver.onrender.com/todos/${task.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

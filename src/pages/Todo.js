@@ -16,7 +16,7 @@ const Todo = () => {
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api
       const response = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${userEmail}`
+        `https://ogtodoserver.onrender.com/todos/${userEmail}`
       );
       const json = await response.json();
       // console.log(json);
@@ -24,7 +24,7 @@ const Todo = () => {
 
       // getting user information
       const streak = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${userEmail}/today`
+        `https://ogtodoserver.onrender.com/todos/${userEmail}/today`
       );
       const userJson = await streak.json();
       const streakJson = await userJson.streak;
