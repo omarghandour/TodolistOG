@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 
 const Todo = () => {
   const [streak, setStreak] = useState();
+  const [todayuser, setTodayuser] = useState();
   const [cookies] = useCookies(null);
   const [tasks, setTasks] = useState(null);
   const authToken = cookies.AuthToken;
@@ -16,22 +17,26 @@ const Todo = () => {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api
       const response = await fetch(`http://localhost:5000/todos/${userEmail}`);
       const json = await response.json();
-      console.log(json);
+      // console.log(json);
       setTasks(json);
+
+      // getting user information
       const streak = await fetch(
         `http://localhost:5000/todos/${userEmail}/today`
       );
-      const streakJson = await streak.json();
+      const userJson = await streak.json();
+      const streakJson = await userJson.streak;
+      const todayJson = await userJson.today;
       setStreak(streakJson);
-      // console.log(streakJson);
+      setTodayuser(todayJson);
       //   if (json[0].date === today) {
-      //     console.log(true);
       //   }
     } catch (err) {
       console.error(err);
     }
   };
   console.log(streak);
+  // console.log(streak);
   //   console.log(tasksDates);
   //   const ff = new Date();
   //   console.log(ff);
@@ -51,21 +56,25 @@ const Todo = () => {
   const sortedTasks = tasks?.sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
-  const today1 = new Date().getDay();
-  const yesterday = new Date().getDay() - 1;
-  // console.log(day1, yesterday);
   //   streak
+
+  const today1 = new Date().toLocaleString("en-US", {
+    day: "numeric",
+  });
+  const yesterday = today1 - 1;
+  // console.log(day1, yesterday);
   // const yesterday = new Date(Date.now() - 86400000);
   // console.log(yesterday);
-  const tasksDates = tasks?.map((task) => +task.today);
-  const todayStreak = tasksDates?.includes(+yesterday);
-  console.log(todayStreak);
+  const tasksDates = tasks?.map((task) => +task.todayy);
+  const todayStreak = tasksDates?.includes(yesterday);
+  // console.log(tasksDates);
   return (
     <div>
       {!authToken && <Auth />}
       {authToken && (
         <div className="item-body">
           <ListHeader
+            todayuser={todayuser}
             streak={streak}
             todayStreak={todayStreak}
             listName={`${today} `}

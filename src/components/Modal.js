@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-const Modal = ({ mode, setShowModal, getData, task, todayStreak, streak }) => {
+const Modal = ({
+  mode,
+  setShowModal,
+  getData,
+  task,
+  todayStreak,
+  streak,
+  todayuser,
+}) => {
   const [cookies] = useCookies(null);
   const editMode = mode === "edit" ? true : false;
   const today = new Date().toLocaleString("en-US", {
@@ -10,22 +18,27 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak, streak }) => {
     month: "long",
     day: "numeric",
   });
+
+  const todayDay = new Date().toLocaleString("en-US", {
+    day: "numeric",
+  });
+  const yesterday = todayDay - 1;
+
   const email = cookies.Email;
   console.log(email);
-  const [streaks, setStreak] = useState(streak);
+  // const [streaks, setStreak] = useState(streak);
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
     title: editMode ? task.title : null,
     progress: editMode ? task.progress : 50,
     date: editMode ? new Date() : new Date(),
-    today: new Date().getDay(),
   });
 
   const dbb = process.env.DBB;
   const Streak = async () => {
     const data1 = {
       email: email,
-      streak: streaks,
+      streak: todayStreak === true ? +streak + 1 : 0,
     };
     try {
       const response = await fetch(`http://localhost:5000/login`, {
@@ -40,41 +53,61 @@ const Modal = ({ mode, setShowModal, getData, task, todayStreak, streak }) => {
       console.log(err);
     }
   };
-  useEffect(() => {
-    if (todayStreak === true) {
-      const dfg = new Date().getDay();
 
-      if (+dfg + +streak !== +streak - 1) {
-        setStreak(+streak + 1);
+  const todayPatch = async () => {
+    const data1 = {
+      email: email,
+      today: +todayDay,
+    };
+    if (+todayuser !== +todayDay) {
+      try {
+        const response = await fetch(`http://localhost:5000/today`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data1),
+        });
+        if (response.status === 200) {
+          console.log("todayyy!");
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
-    console.log(streaks);
-  }, [streak, streaks, todayStreak]);
+  };
+  useEffect(() => {
+    console.log(todayStreak);
+
+    if (todayStreak === true) {
+      if (+todayDay !== +todayuser) {
+        // setStreak(+streak + 1);
+        console.log("hgfgcgf");
+        Streak();
+        todayPatch();
+      }
+    } else {
+      Streak();
+    }
+    // console.log(streaks);
+  }, [todayuser]);
   const postData = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      // https://us-central1-back-e8f9a.cloudfunctions.net/api
+      const response = await fetch(`http://localhost:5000/todos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
       if (response.status === 200) {
         console.log("worked!");
         setShowModal(false);
         getData();
-        Streak();
-        if (data.date === today) {
-          setStreak(streak + 1);
-        }
       }
     } catch (err) {
       console.log(err);
     }
   };
-  Streak();
+  // Streak();
 
   const editData = async (e) => {
     e.preventDefault();
