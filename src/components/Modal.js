@@ -25,7 +25,6 @@ const Modal = ({
   const yesterday = todayDay - 1;
 
   const email = cookies.Email;
-  console.log(email);
   // const [streaks, setStreak] = useState(streak);
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
@@ -41,11 +40,14 @@ const Modal = ({
       streak: todayStreak === true ? +streak + 1 : 0,
     };
     try {
-      const response = await fetch(`http://localhost:5000/login`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data1),
-      });
+      const response = await fetch(
+        `https://us-central1-back-e8f9a.cloudfunctions.net/api/login`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data1),
+        }
+      );
       if (response.status === 200) {
         console.log("streak!");
       }
@@ -61,11 +63,14 @@ const Modal = ({
     };
     if (+todayuser !== +todayDay) {
       try {
-        const response = await fetch(`http://localhost:5000/today`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data1),
-        });
+        const response = await fetch(
+          `https://us-central1-back-e8f9a.cloudfunctions.net/api/today`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data1),
+          }
+        );
         if (response.status === 200) {
           console.log("todayyy!");
         }
@@ -93,11 +98,14 @@ const Modal = ({
     e.preventDefault();
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api
-      const response = await fetch(`http://localhost:5000/todos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.status === 200) {
         console.log("worked!");
         setShowModal(false);
@@ -113,11 +121,14 @@ const Modal = ({
     e.preventDefault();
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api/
-      const response = await fetch(`http://localhost:5000/todos/${task.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${task.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.status === 200) {
         setShowModal(false);
         getData();

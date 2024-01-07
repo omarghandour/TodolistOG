@@ -20,6 +20,10 @@ const ListHeader = ({ listName, getData, todayStreak, streak, todayuser }) => {
     <div className="list-header">
       <img className="logo-lh" src={logo} alt="TodoList Logo" onClick={hanle} />
       <h1 className="date">{listName}</h1>
+      <h1 style={{ fontSize: "15px", width: "50px", color: "white" }}>
+        {" "}
+        {streak} 🔥
+      </h1>
       <div className="button-container">
         <button className="create-lh" onClick={() => setShowModal(true)}>
           Add New

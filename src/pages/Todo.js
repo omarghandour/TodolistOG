@@ -15,14 +15,16 @@ const Todo = () => {
   const getData = async () => {
     try {
       // https://us-central1-back-e8f9a.cloudfunctions.net/api
-      const response = await fetch(`http://localhost:5000/todos/${userEmail}`);
+      const response = await fetch(
+        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${userEmail}`
+      );
       const json = await response.json();
       // console.log(json);
       setTasks(json);
 
       // getting user information
       const streak = await fetch(
-        `http://localhost:5000/todos/${userEmail}/today`
+        `https://us-central1-back-e8f9a.cloudfunctions.net/api/todos/${userEmail}/today`
       );
       const userJson = await streak.json();
       const streakJson = await userJson.streak;
@@ -35,7 +37,7 @@ const Todo = () => {
       console.error(err);
     }
   };
-  console.log(streak);
+  // console.log(streak);
   // console.log(streak);
   //   console.log(tasksDates);
   //   const ff = new Date();
