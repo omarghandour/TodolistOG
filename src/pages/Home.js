@@ -19,7 +19,9 @@ const Home = () => {
   );
   const getData = async () => {
     try {
-      const response = await fetch(`https://${dbb}/todos/todo@gmail.com`);
+      const response = await fetch(
+        `https://ogtodoserver.onrender.com/todos/todo@gmail.com`
+      );
       const json = await response.json();
       setTasks(json);
     } catch (err) {

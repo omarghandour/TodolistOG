@@ -39,7 +39,8 @@ const Modal = ({
       email: email,
       // streak: todayStreak === true && +streak !== undefined ? +streak + 1 : 1,
       streak:
-        todayStreak !== true || +streak === undefined
+        (todayStreak !== true && +todayuser !== +todayDay) ||
+        +streak === undefined
           ? 1
           : +todayuser !== +todayDay
           ? +streak + 1
@@ -100,7 +101,6 @@ const Modal = ({
   const postData = async (e) => {
     e.preventDefault();
     try {
-      // https://us-central1-back-e8f9a.cloudfunctions.net/api
       const response = await fetch(`https://ogtodoserver.onrender.com/todos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -120,7 +120,6 @@ const Modal = ({
   const editData = async (e) => {
     e.preventDefault();
     try {
-      // https://us-central1-back-e8f9a.cloudfunctions.net/api/
       const response = await fetch(
         `https://ogtodoserver.onrender.com/todos/${task.id}`,
         {
