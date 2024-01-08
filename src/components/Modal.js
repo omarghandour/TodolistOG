@@ -32,14 +32,21 @@ const Modal = ({
     progress: editMode ? task.progress : 50,
     date: editMode ? new Date() : new Date(),
   });
-
   const dbb = process.env.DBB;
+
   const Streak = async () => {
     const data1 = {
       email: email,
-      streak: todayStreak === true ? +streak + 1 : 0,
+      // streak: todayStreak === true && +streak !== undefined ? +streak + 1 : 1,
+      streak:
+        todayStreak !== true || +streak === undefined
+          ? 1
+          : +todayuser !== +todayDay
+          ? +streak + 1
+          : +streak,
     };
     try {
+      console.log(streak);
       const response = await fetch(`https://ogtodoserver.onrender.com/login`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -78,12 +85,11 @@ const Modal = ({
   };
   useEffect(() => {
     console.log(todayStreak);
-
+    Streak();
     if (todayStreak === true) {
       if (+todayDay !== +todayuser) {
         // setStreak(+streak + 1);
         console.log("hgfgcgf");
-        Streak();
         todayPatch();
       }
     } else {

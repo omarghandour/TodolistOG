@@ -14,7 +14,6 @@ const Todo = () => {
   const dbb = process.env.DBB;
   const getData = async () => {
     try {
-      // https://us-central1-back-e8f9a.cloudfunctions.net/api
       const response = await fetch(
         `https://ogtodoserver.onrender.com/todos/${userEmail}`
       );
@@ -29,19 +28,13 @@ const Todo = () => {
       const userJson = await streak.json();
       const streakJson = await userJson.streak;
       const todayJson = await userJson.today;
-      setStreak(streakJson);
+      setStreak(+streakJson);
       setTodayuser(todayJson);
-      //   if (json[0].date === today) {
-      //   }
     } catch (err) {
       console.error(err);
     }
   };
-  // console.log(streak);
-  // console.log(streak);
-  //   console.log(tasksDates);
-  //   const ff = new Date();
-  //   console.log(ff);
+
   useEffect(() => {
     if (authToken) {
       getData();

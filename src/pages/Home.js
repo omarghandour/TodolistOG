@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet-async";
 const Home = () => {
   const [cookies] = useCookies(null);
   const [tasks, setTasks] = useState(null);
+  const dbb = process.env.DBB;
 
   const authToken = cookies.AuthToken;
   const sortedTasks = tasks?.sort(
@@ -18,9 +19,7 @@ const Home = () => {
   );
   const getData = async () => {
     try {
-      const response = await fetch(
-        `https://ogtodoserver.onrender.com/todos/todo@gmail.com`
-      );
+      const response = await fetch(`https://${dbb}/todos/todo@gmail.com`);
       const json = await response.json();
       setTasks(json);
     } catch (err) {
