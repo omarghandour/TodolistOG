@@ -10,7 +10,7 @@ const ListItem = ({ task, getData }) => {
   const deleteItem = async () => {
     try {
       const response = await fetch(
-        `https://ogtodoserver.onrender.com/todos/${task.id}`,
+        `https://ogtodoserverlast.vercel.app/todos/${task.id}`,
         {
           method: "DELETE",
         }

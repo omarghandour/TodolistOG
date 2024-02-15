@@ -19,7 +19,7 @@ const Auth = () => {
       return;
     }
     const response = await fetch(
-      `https://ogtodoserver.onrender.com/${endpoint}`,
+      `https://ogtodoserverlast.vercel.app/${endpoint}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

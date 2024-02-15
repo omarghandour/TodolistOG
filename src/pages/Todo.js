@@ -15,7 +15,7 @@ const Todo = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        `https://ogtodoserver.onrender.com/todos/${userEmail}`
+        `https://ogtodoserverlast.vercel.app/todos/${userEmail}`
       );
       const json = await response.json();
       // console.log(json);
@@ -23,7 +23,7 @@ const Todo = () => {
 
       // getting user information
       const streak = await fetch(
-        `https://ogtodoserver.onrender.com/todos/${userEmail}/today`
+        `https://ogtodoserverlast.vercel.app/todos/${userEmail}/today`
       );
       const userJson = await streak.json();
       const streakJson = await userJson.streak;
